@@ -1,0 +1,32 @@
+default port for the nexus: 8081
+
+Nexus instalation
+-------------
+-creare a t2 mmedium instance 
+-login to that instance with root user[>sudo su-]
+-got to opt dir[>cd /opt]
+-check the java is installed or not if not install the java
+-check yum wget installed are not [>yum install wget -y]
+-now install the nexus sft[>wget <url for nexus zip>]
+-unzip the getten zip file [>tar -zxvf <nexas zip file>]
+-it will create nexus folder go to that dir [>cd <nexus dir name>]
+-now add the new user to access the nexus[>useradd nexus]
+-provide the sudo access to that nexus user[visudo]
+add under root
+nexus ALL=(ALL) NOPASSWORD: ALL
+:wq! -> to save that file
+-give that owner permission to the nexus directory
+>chown -R nexus:nexus /opt/nexus
+>chown -R nexus:nexus /opt/sonatype-work
+>chmod -R 775 /opt/nexus
+>chmod -R 775 /opt/sonatype-work
+
+creating the service for the nexus while creating the softlink 
+=======================================================================
+>ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+
+
+nexus credentials
+-----------------------
+username: 
+pwd: 

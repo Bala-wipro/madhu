@@ -1,0 +1,33 @@
+After instaling mvn 
+
+>mvb pakage --> it will create mvn package in our local with the folder location
+~/.m2/repository
+
+Mvn local repo default path 
+~/.m2/repository   [~ is the home directory ]
+
+in windows home directory will be 
+------------------------------
+c:\users\madhu\.m2\repository
+
+in linux
+---------------
+/home/madhu/.m2/repository
+
+
+-clean  --> it wll delete the previous biuld files
+-site  -->it will create the documentation for the source code 
+*mvn default structure 
+-validate:  it will check the project directory structure and resource filr 
+-compile: it will compile the source code and junit test case code
+-test:it will run the junit test cases
+-package:it will create the package/build artifacts
+-install:it will store the build artifats intlo mavn local repo
+-deploy: it will stor the build artifacts into remote repo
+
+> mvn clean install --> it will clean the existing builds and install the new build [it will execute above default structure]
+>mvn clean package -DskipTest  --> to skip the test while bulding the code [it will compail the test cases and skips the test]
+>mvn clean package -Dmaven.test.skip=true --> it will skip both compili and test cases
+
+
+>mvn clean package -f flipcart.xml --> when you define custom pom.xm file we need to build with using -f with custom defined name .xml file 

@@ -1,0 +1,111 @@
+#!/bin/bash
+
+#echo command is to diaplay what you want to pint with in a string 
+echo "my name is linux"
+
+# expr is the expression for addition,sub,divid what you want 
+echo "addition of two numbers is : " `expr 4 + 5`
+
+#read is the command to set the variable with read command with defined value
+echo "please enter yout name"
+
+read name
+
+# $ will refers to call the variablel name 
+echo "yor name is :" $name
+
+# read  and the any varibale name will you can also enter any num of values 
+echo "please enter the array value you want"
+read arrayvalues
+
+echo "array value you enterd is:" $arrayvalues
+
+# if you need any value in an array with using index value of array 
+echo "3 rd element of the set of arrey you menctned is :" ${arrayvalues[2]}
+
+echo "all values in an array is: " ${arrayvalues[*]}
+
+#if you not menction any name to the read function you can use $REPLY to that read variable
+echo "please enter yout name"
+
+read
+
+echo "yor name is :" $REPLY
+
+
+if else condition in linux 
+---------------------------------
+#!bin/bash
+echo "please enter the number-1"
+read number1
+echo "please enter the nnumber-2"
+read number2
+if [ $number1 -gt  $number2 ]
+then 
+echo "number1 is graterthan number2"
+else
+echo "numer2 is lessthan number1"
+fi
+
+
+for loop 
+------------------------
+for (( num=1;num<=5;num++ ))
+do
+echo $num
+done
+
+while loop to print num from 1 to 5
+---------------------------------------
+i=1
+while [ $i -le 5 ]
+do
+echo $i
+i=`expr $i + 1`
+done
+
+
+switch case - below $1 is the orgument it will execute llike [ sh test.sh 1]
+-----------------------
+case $1 in
+
+start)
+echo "start function has been started"
+echo "";;
+
+stop)
+echo "stop function has been stopped"
+echo "";;
+
+restart)
+echo "restart function has been restarted"
+echo "";;
+
+*)
+echo "please enter the correct orgument"
+echo ""
+echo "start | stop | restart";;
+
+functions
+----------------------------------
+echo "function demo"
+
+madhu()
+{
+echo "function name is madhu"
+echo "it is for the reference for demo purpose"
+}
+
+echo "calling the function name with madhu"
+madhu
+
+echo ""
+
+echo "function madhu execution has been done"
+echo ""
+
+
+====================
+create the functions in one .sh file and calling the same functions from another .sh file need to add
+source ./functions_file_name  --> in top of another file 
+========================================

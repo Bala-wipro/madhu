@@ -1,0 +1,73 @@
+sonarQube pre req 
+----------------
+.default poet of sonarQube is : 9000
+.before installing we need to check oracle JRE8 or Open
+.ram size 2 gb
+.t2 medium instance type
+
+-creare the t2 medium instance 
+-connect to tha server
+-install java in that server 
+-then go to root user [sudo su -]
+-then go to OPT dir [cd /opt]
+-install unzip package [>yum install wget unzip -y]
+-then download the sourceQube software zip link from browser and download in server[>wget <software zip link>]
+-unzip the ziped softwate [>unzip <zip file name>]
+-then add one user to perfome action instad of root [>useradd <suername>]
+-give sudo access to that user [>visudo]
+in vi add this line to bellow to root [username All=(ALL) NOPASSWD: ALL]
+saave the file
+-change the owner permission to that user [>chmod -R 775 <software file>]
+                                          [>chown -R username:username <software file>]
+-then swith to that created user[>sudo su- <username>]
+-go to bin dir[>cd bin]
+-their you can see the differ system versions you can go to which that which server you want to run the sonarqube softaware[>cd linux]
+-open that linex directory you can view sonar.sh file [>ls ]
+-now run that sh script with the sonar user[>sh <sonar.sh file> start]
+-check the status it is started pr not[>sh <sonar.sh file> status]
+-to access the sonarQube in browser need to take public ip from that aws server [http://<public ip>:<default port is 9000>]
+-after opening sonarqube in browser login with default credentials [login: admin, pwd:admin]
+-after loggin we need to change the pwd >click on profile > my account >security >give the new pwd >change the pwd
+
+---------------------------------------
+how to generate the report for java project 
+------------------------------------
+-connect to the server
+-start the sonarQube with sonar user
+-move to root user to check the mavan active or not [>mvn -version]
+-go to the project location [>cd <project name>]
+-their you can see the pom.xml file 
+-we need to confgure the sonaeqube details in pom.xml of that project[>vi pom.xml]
+then edit the properties in that pom file with your sonar credentials
+-then execute sonar command from inside the project directory[>mvn clean sonar:sonar]
+-now go to the sonar dashboard refresh the tab you can see the report 
+
+
+
+how to generate token for the login insted of login and pwd
+--------------------------------------------------------------
+in sonar dashboard go to >asministration > security > users > token . click on bascode icon > give any name > it will generate token (copy the token and save it any ware you remenber)
+
+
+to use the token to login 
+---------------------------
+-copy the token
+-go to server where the pom file avaliable 
+-edit the pom file [>vi pom.xml]
+comment the sonar.login amd sonar.pwd tags
+<!--
+     sonar.login
+     sonar.pwd
+-->
+the add the token in pom.xml file 
+<sonar.login><token></sonar.login>
+save :wq!
+
+now you can test while generationg the report using >mvn clean sonar:sonar
+
+How to change the port num
+-----------------------------
+go toserver >sonar extract file location > conf> vi sonar.properties #9000
+
+
+

@@ -1,0 +1,10 @@
+defauly port for jenkins-8080
+
+username : bala
+password: 13F91a0306@
+
+After installing jenkins in the server we need to start the service
+---------------------------------------------------------------------
+>systemctl enable jenkins   --> to enable the jenkins service 
+>systemctl status jenkins   --> to check the status of jenkins
+>systemctl start jenkins   ---to start the jenkins server

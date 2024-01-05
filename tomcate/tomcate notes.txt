@@ -1,0 +1,71 @@
+tomcat defaultport: 8080
+usename: bala
+pwd: 13F91a0306@
+
+tomcat server will support only web applications only [war files olny]
+
+tomact installation 
+---------------------------
+before instaling tomcate we need to check java installed or not we need java to install tomcat
+then install tomcte 
+>ps -ef | grep tomcat  --> to check the tomcat installed r not if installed it will view the tomcate version 
+
+default tomcate pot : 8080
+
+aafter installing command to start tomcat server
+>sudo su - --> to to root user
+>chmod u+x *.sh  --> to give the execute permissions for .sh scripts in bin directory of tomcat server
+>sh <startup.sh file> --> to start the tomcat server
+> ln -s <startup.sh file location> /usr/bin/<startname>  --> to create the [smart link dor that .sh file]
+
+port num change
+-------------------
+go to -> apachi home directory -> conf directory -> server.xml
+>vi server.xml
+:se nu -> it views line num in vi file
+-> go to line 69 you can see the connector port details you can edit the details their 
+
+
+Tocat directory structure
+-----------------------------
+bin - binary files like 
+-----
+startup.sh
+startup.bat
+shutdown.sh
+shutdown.bat
+catilina.sh <argument start/stop>  -to execute the operation
+catilina.bat
+
+conf
+-----
+servers.xml
+tomcat-users.xml
+
+lib
+----
+jar files
+
+log
+-----
+log files
+catalina.out
+manager.log
+localhost.log 
+etc log file will generate in log folder
+
+webapps
+--------
+applications 
+docs
+examples
+host-manager
+manager 
+root
+
+woek
+----
+application file
+
+temp 
+-----

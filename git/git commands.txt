@@ -1,0 +1,137 @@
+>git init <directory name>  (or) go to the directory and enter command [git init .]---> is used to initialize a new Git repository.
+>git status --> to check the file status in that working directory 
+> git add . (or) git add * (or) git add <file name> --> to add the files to staging areay before commiting to git repo 
+>git commit -m "<message>" ---> to commit the code into llocal repo befrore pushig it into remote repo(all files in staging)
+>git commit -m "<message>" filename1 filename2 --> to commit individual files into local repo
+>git commit -a -m "<message>" ---> to commit the code into staging and local repo at a time 
+>git config --global user.email "you@example.com"  --> to add your repo details in you local config files
+>git config --global user.name "Your Name"  ---> to add your username in local config file 
+>git config --global --list  --> to get the list of uses in your local config file 
+>git remote add <clarks>[any nickname] <https://github.com/Bala-wipro/Clarks.git> [repo http url] --> command to add your remote repo in your local
+>git remote -v --> to check the list of remote repos in your local 
+>git push <clarks>[nickname] <master>[branchname] --> to push the code into remote repo   
+>git log --> to  check the git commit log [q] pless q to come out from the log 
+>git log -2 ---> it will view last 2 commited logs
+>git log <file name> --> it views that file commtitd log 
+>git show <commit id>  ---> it will view that perticular commited files from that id [id will get from git log]
+>git show --pretty="" --name-only <commit id>  --> it will show the only file name for that perticular commit id
+>git reset <file name> --> to reset back from staging to working 
+>git revert <commit id> --> it will revert the code from local repo after commited and pushed it will not revert from remote repo after reverting locally you can push again into remot repo then the code will updated 
+>git clean -n --> it will show that what are the deleted  files that are in the working directory
+>git clean -f ---> it will delete the files that are present in the working directory
+
+>git branch --> to view the branches in our local repo
+>git branch <name> --> to create the one branch with that name in our remote repo
+>git checkout <created branch name> --> to swith to that branch 
+>git diff <branch name>  --> to view the difference between the files and the content in the both the brabnch [before that you need to be in parent branch]
+>git merge <child branch name>  --> it will merge the code what is in the chid branch to parent brench [you need to be in parent branch]
+>git branch -d <branch name> ---> it will delete the branch 
+
+>git branch -r --> it will view branches in remote repo
+>git branch -a --> it will view all the branches in local and remote
+>git checkout -b <branch name> --> it will create the branch and swithch the brach in one command 
+>git push <clarks>[nickname] <branchname> --> to create the branch in remote repo
+>git push <clarks>[nickname] --all  --> what are the branches in the local repo need to push at a time into remote repo
+>git pull <clarks> <new branch name> --> after creating any new branch in remote need to pull the new branch then only it will view in local repo
+>git checkout <new branch name> --> after pull the new branch into local need to check out to that new branch then only it will view in local
+>git push <clarks> :<deleted branch name inlocal> --> it wll deleted the branche in remote repo after deleting it in local 
+
+>git tag --> it will display the tags
+>git tag <tag name> --> it will create the tage name 
+>git git push <clarks>[nickname] <tag name>  ---> it will push the tag to remote repo 
+>git git push <clarks> --tags  ---> it will push all the tags to rmote repo
+>git tag -d <tag name> --> it will delete the tag  
+
+Git Stash
+--------
+>git stash (or) git stash save "<any name>" --> it willl create the backup with that name 
+>git stash list  --> it will view the backups list
+>git stash apply <stash name>  -->
+>git stash pop <stash name>  --> it will apply and delete the backup at a time 
+
+git cherry-pick
+------------------
+>git  cherry-pick <commet id> --> it will tack back the code to that commet id 
+
+
+git pull
+-------------
+>git clone <remote repo url> --> to copy the entair code in our local repo
+>gti fetch <clarks> <branch name> --> to fetch the data from repmote to local repo
+>git merge <clarks>/<local branch name> ---> to merge the code into locla repo to working directory 
+>git pull <clarks> <branch name> --> it will get the data from remote to local repo and will add working directory in single command 
+
+ 
+
+1)SSh Keys
+-----------------
+>ls -la ~/.ssh/  --> it will view any ssh are avaliable [you may view with name id_rsa and id_rsa.pub] if avaliable 
+
+>ssh-keygen ---> it will generate the ssh keys to configure pwd less remote push [it will generate below id's]-->press enter 3times
+id_rsa --> private key
+id_rsa.pub --> public key 
+
+>ssh-keygen -t <what type of algoritham you want to generate> --> it will generate the private and public key witha that menction type of algarithum
+
+2)After generating ssh-key gen take the ssh private key to add in reomote repo 
+----------------------------------------------------------------------------
+>ls -la ~/.ssh/
+>cat ~/.ssh/id_rsa.pub --> it will view the ssh public key
+1)now copy the public key and go to github->profile->settings-> ssh and gpt keys -> new ssh key -> add name -> paste the copy key in key -> click add ssh key 
+2)while clicking add ssh key it will ask your git password 
+3) after givng password ssh key will be added  
+
+>ssh -T git@github.com  --> to authonticate our remote pepo in our local and same command will shows the authontication details will execute again 
+
+enter <yes>
+
+3)after configuring the ssh key in remote repo we need to add the ssh url in local
+------------------------------------------------------------------------------
+take the ssh url from git hub 
+> git remote -v --> it will view the remote repos list 
+>git remote add <alis name> <git ssh url>   --> to add remote ssh url in our local 
+
+after adding ssh url try to push 
+-----------------------------
+> git push <alis name given for ssh url> <branch name>  -- > it allos to push directly without asking credentials after we are doing above 1,2,3, steps
+
+
+Pull Request
+----------------------
+-> we need to create pull request in githud for remote repo
+-> we need to use merge comand in local repo for merge the code
+
+Fork
+-------------
+-> create the fork in github to tack a copy of repo into another github repo to your git hub repo
+
+Rebase
+-------------
+it is same like merge 
+if we merge the branch all the commits what you have developed in the perticular branch it will merge into single commit into that brach
+if you are using rebase command it will saperately no of commits you have done in the developments that would be commited in that branch 
+
+>git rebase <branch name>  
+
+
+
+
+
+
+
+
+git error
+-------------
+400 --> bad request
+401 --> unauthorised
+403 --> Forbidden
+404 --> not found
+405 --> 
+
+500 --> server side error
+502 --> internal server error 
+505 --> 
+
+
+
+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  --> clerks remote repo tocken
