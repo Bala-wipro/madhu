@@ -1,0 +1,423 @@
+Docker
+username : madhu223
+pwd: 13F*******06@
+
+Docker working directory: /var/lib/docker
+containerization tools= Docker,container-D,CRT-O,podman,rocker
+container orcherstation tools= Docker swarm, k8s, openshift, mesios ...etc
+containerization with container orchestration = docker with k8s or container-D with k8s
+---------
+-use ubantu machine to utilize the docker 
+
+>sudo apt update  --> to update the apt repo
+>sudo apt install docker.io -y   --> to install the docker
+>docker info --> to check the docker installed info 
+>ps -ef | grip "docker"  --> to check the docker is running or not 
+>sudo service docker status   --> to check the docker status after isntall docker
+
+- to access the docker command create the user under docker group 
+>sudo usermod -aG docker <ubuntu>[any name]
+
+resatrt the server to acces the use [disconect putty and login again]
+
+>docker ps    ---> list of docker files
+>docker images
+>docker container ls
+
+syntax to create a container
+>docker run -d -name <containerName> -p <hostport:containerPort> <image>    [-d represents it will runs in background]
+exp
+>docker run -d -p 80:80	--name tomcateContainer tomcat
+
+>docker run -d --name <mavenwebapp> -p 8080:8080 madhu223/maven-web-application   --> it will pull the image from our dockerhun registory if it will not in local
+
+
+to build the immage 
+--------------------------
+syntax: docker build -t <dockerusername>/<applicationName>:<version>
+ex: docker build -t madhu223/mavenWebApp:1.0.0 .    [need to ec=xecute it in project location (.war file location)]
+
+
+push the image in your repo
+---------------------------------
+syn: docker push <yourRepoUserName>/<applicationName-Any>:<num-any-for tag> .  [run this command in project location]
+
+
+
+docker attentication in our system to push the image in docker hub
+-------------------------------------------------------------------------
+-user your docker hun credentials menction top in this file 
+
+>docker login -u <username> -p <pwd> [if you didnt menction -p pwd iwll ask automatically for that use below command]
+>docker login -u <username>   [it will ask the pwd in hide mode]
+
+
+
+
+steps 
+=====
+1)install docker
+>sudo apt update  --> to update the apt repo
+>sudo apt install docker.io -y   --> to install the docker
+>docker info --> to check the docker installed info 
+>ps -ef | grip "docker"  --> to check the docker is running or not 
+>sudo service docker status   --> to check the docker status after isntall docker
+
+2)create user under docker grou 
+>sudo usermod -aG docker <ubuntu> [username]
+
+3)create image 
+>docker build -t <userName>/<imagename-any>:<tag-or-version> .    --> username should must and it would be your docker hud username 
+>docker build -t <url>/<imagename>:<tag> .  --> if you are using url hubs
+>docker build -t madhu223/mavenWebApp:1.0.0 .    [need to ecxecute it in project location (where .war file located)]
+
+4)create container usong that build image above
+>docker run -d --name <mavenwebapp> -p 8080:8080 madhu223/maven-web-application:1.0  --> it will pull the image from our dockerhun registory if it will not in local
+
+5)push the image intp docker hub
+>docker push <imageName>:<tag>
+>docker push madhi-maven-c:1v
+
+
+
+docker commands
+=====================
+>docker images --> list the images avaliable 
+>docker push <image>   --> to push the image 
+>docker login <url if any other docker hub> -u <username> -p <pwd>  --> login to dicker hub 
+>docker pull <image details> [madhu223/imageName:1.0.0]  --> pull the image from hub to local
+>docker image inspect <image> -->give more details about image
+>docker history <image>   -->view the images layers
+>docker rmi <image>   --> to delete the image locally 
+>docker images -f danglig=true  --> view the tag less images
+>docker tag <imageid> <name>:<tagnum>  --> add name to that dangling images[unnamed images]
+
+>docker system prune
+   this will remove:
+	-all stopped containers
+	-all networks not used at least one container
+	-all dangling images
+	-all dangling build cache
+>docker image prune
+	-this will remove all dangling images
+>docker container prune
+	-this will remove all stopped containers
+>docker volume prune
+	-this will remove all volumes not used at least one container
+>docker network prune
+	-this will delete all netwoek not used at least aone container
+
+tar and un-tar the image 
+----------------------------------
+>docker save <image id> -o <local dir location/name.tar>   --> to tar the image 
+>docker load -i <tar file name>  --> to load the docker image from tar file
+>docker images
+>docker tag <imageid> <name>:<tagnum>  --> add name to that dangling images
+
+
+container commands
+======================
+>docker ps   --> to view the running containers
+>docker ps -a  --> it will view the containers which are in all stats [active/exited/stopped]
+>docker run -d --name <containerName> -p <hostport:containerPort> <image>   -->to creare the contaner using image
+(or)
+>docker create -d --name <containerName> -p <hostport:containerPort> <image>   -->to creare the contaner using image
+[docker container only creates the container but it will not stars/ docker run will create and run]
+>docker start <containerID ot name>
+>docker stop <containerID ot name>
+>docker kill <containerID ot name>
+>docker restart <containerID ot name>
+
+>docker rename <oldName> <newName>  --> to rename the container 
+
+--------------------------------------------------------------------
+>sudo netstat -tunlp   --> to view the ports usage in our system   |
+--------------------------------------------------------------------
+
+>docker run --name <containerName-any> -p <hostport>:<containerport> <image>:<tag> --restart always    -->restart the container automatically aftrt start/stop the server
+
+ 
+
+docker log commands for trouble shooting
+---------------------------------------------
+>docker logs <container name>   --> it will view the log 
+>docker logs -f <contaner name>  --> it will show the running logs 
+>docker logs -f --tail 20 <container name>  --> it will view the last 20 logs in running log 
+
+>docker exec <containerName> ls   --> it will execute the command in container level and view the list in container levael
+>docker exec <containerName> pwd    --> it will view the present directory in the container 
+>docker top <container>  -->it will view the top proces runing in the container
+
+>docker exec -it <containerName/id> bash/sh   -->it will enter into the inside the container bash
+> exit ---> to get out from the container
+
+>docker stats <containerName/id>  ---> to view the container stats [to check- cpu/memory/storage]
+>docker inspect <containerName>  --> to check the container issues whie its starts the container
+
+Dockerfile commands
+-------------------------
+>docker cp <filePath> <containerName/Id:/filepath>  --> copy file from server lo container
+>docker cp <containerName/Id:/filepath> <filePath>   --> copy file from container to server
+>docker commit <imageName-any> <containerName>:<tag>   --> it will create an image to the container
+
+>FROM  tomcat:1.0 ---> FROM it will tack the file from menctiond location to create the image 
+>MAINTAINER <message> --> it is for just info
+>COPY  <source> <dest>  --> COPY will copy the files from locla to container
+>ADD  <soure/url-location> <dest>  --> ADD will copy the file from location where it is local/url/ to contair 
+>RUN <command> ex:RUN sudo apt install git --> RUN will create a layer on top of the base layer while creating image 
+>CMD <command> ex:    --> CMD will executed when we started the container
+>ARG <argument name>=<default value>  --> arf will act as a varuable you can refer with $<argument name> in the file to pass the value dinamically for that you can build the image as below
+[docker build -t <image name> --build-arg <argument name>=<value any> . ex: docker build -t imageone --build-arg version=2.0 .]
+if you have multiple argument [docker build -t <image name> --build-arg <argument name>=<value any> --build-arg <argument name>=<value any> .]
+
+>ENV <name in caps>=<value>  --> we can change the env value while executing the container by using below command
+[docker run --env <env name>=<value> <imageName>]
+
+-ARG -> it will change while creating the image but not in container 
+-ENV ->it will change in container leavel but not in wile builing image 
+
+>LABEL
+>USER
+
+
+Best Practices
+------------------
+1) use official images as base images
+2) use alpine images where ever its possible o reduse the size of images
+3)dont copy are install un necessary softwares/files while building the miage 
+4)reduse the lauers as mush as possible. we can define multiple related commands in an single RUN instruction 
+ in RUN command use && (or) \ for multiple comands in single run 
+
+5)execute the container process as non root user 
+6)scan docker images for security vulnarabities
+free source to scan the docker images    |     inbult scaning cabulity softwares
+trivy                                    |        ECR 
+clair                                    |        ACR
+anchor                                   |        GCR
+
+
+Multi stage docker file 
+-----------------------------
+From mvn:3.8-jdk-11 as <build> (as build is the name for this stage or else you cane keep it empty)
+WORKDIR /app   -->it will create the dir and jump into that dir
+COPY . . 
+RUN mvn clean package
+
+From tomcat:8.0.20-jre8
+[COPY --from=0(or) name given for above stage  like --from=buid]
+COPY --from=0 /app/target/maven-web-app*.war /usr/local/tomcat/webapps/mvn-web-app.war -->it will copy from above stage
+
+finel will be the last stage will create as image 
+
+
+
+create the ECR(elastic container regestry) and configure in our system 
+------------------------------------------------------------------------------
+1)create a ECR in aws gui and take the ECR url like (126124269786.dkr.ecr.us-east-1.amazonaws.com/mv-wb-app)
+-select private 
+-menction repo name 
+-Tag immutability- enable 
+-Scan on push -enable
+-KMS encryption - disable 
+2) go to server 
+3)create docker image using with ecr url as a tag name 
+>docker buid -t <ecr url/reponame>:<tag> .
+>docker build -t 126124269786.dkr.ecr.us-east-1.amazonaws.com/mv-wb-app:1 .
+4)install the aws cli to geerate the aws pwd or access the aws in our server 
+>sudo apt install awscli
+5)configure the iam credentials in our server 
+-go to aws UI 
+-search for IAM
+-create a role
+-select AWS service >> select EC2  >> click next 
+-search for container register >> select amazonec2container regestry full access >> click next
+-give role name >> click on create role 
+-it will create the IAM role
+6)give access that created IAM role to our build instance
+-go to ec2 instance in GUI 
+-select the instace what you have 
+-click on acction >> security >> modify IAM role 
+-attach the above create iam role >> click on update iam role 
+7)autinticate the ecr url n our server 
+>aws ecr get-login-password --region ap-south-1  --> it will generate the tocken 
+>docker login <ECR url> -u AWS -p <token>
+docker login 126124269786.dkr.ecr.us-east-1.amazonaws.com -u AWS -p <>token 
+(or)
+you can use bot the command in single step with out copying the token 
+>aws ecr get-login-password --region ap-south-1 | docker login 126124269786.dkr.ecr.us-east-1.amazonaws.com --username AWS --password-stdin -->it automaticlaly generate the tocken and access the token to our ecr
+8) now you can puh the image into your ECR
+>docker push 126124269786.dkr.ecr.us-east-1.amazonaws.com/mv-wb-app:1
+9)if you need to pull in same server you ca pull 
+>docker pull 126124269786.dkr.ecr.us-east-1.amazonaws.com/mv-wb-app:1
+but if you want to pull in another server you need to authinticate again in another server
+-login to that server 
+-install sudo apt install awscli
+-do step num 6
+-do step num 7 
+-now you can pull the image as above >docker pull 126124269786.dkr.ecr.us-east-1.amazonaws.com/mv-wb-app:1
+
+
+Docker networking
+-------------------------
+create a custom bridge network 
+> docker network create -d <driver> <networkname> 
+ex:docker network create -d bridge maven-web-app-bridge
+
+if you want to see the list of drivers
+>docker network ls
+
+create the container with that above created network
+>docker run -d --name <anyNameOfContaine> -p 8080:8080 --network <networkName> <image>:<>tag
+Ex: docker run -d --name mavenwebapp -p 8080:8080 --network maven-web-app-bridge madhu/mavenWebApp:1
+
+
+Volume
+-------------
+>docker volume ls  --> to view the list of volumes
+>docker volume prune  --> it will delete all existing volimes
+>docker volume create -d <volumeriver> --name <volimeName>   --> to create the volume with local file system in your system 
+ex: docker volume create -d local mangoVol
+>docker volume rm <volumeName>  --> to delete the volume 
+>docker plugin ls  --> to check the list of plugins
+
+
+
+
+volumes are two types they are 
+1)Bind mouns  --> Any files of folder from host system mounted with the container directory is called a bind mount 
+2) Volume 
+
+running container with the buind mount of local file system 
+--------------
+>docker run -d --name <containerName-any> --network <networkName-what you created> -v <localfilesysytem/volume:containerFilesystem> -e <variablelsLoginName> -e <pwdVariable> <image:tag>
+eX :docker run -d --name mango --network mangoBridge -v /home/usr/mago:/data/db -e <loginvariable> -e <pwdvariable> mango:1  
+
+
+Create a EBS volume and mount to the container
+--------------------------------------------------
+befor creating the EBS volume you need to install plugin in our docker server
+-rexray plugin will supports the amazon volums
+>docker plugin ls  ---> to check the plugin list 
+
+-create access key in aws server to give the credentials to plugin to create the volumes in EBS
+-go to aws gui > click on top right username > security credentials > create access key ---> it will provide key and seckret key 
+-using the above credintails install the plugin 
+>docker plugin install rexray/ebs EBS_ACCESSKEY=AKIAR2XMXUDNA7IVYLZL EBS_SECRETKEY=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 -->it will create the plugin 
+>docker plugin ls
+>docker volume ls
+>docker volume create -d <driverName> <NameAny>
+ex: docker volume create -d rexray/ebs mangoebsvolume  ---> it will create the volume you can watch in aws ui as volumes pages
+>docker inspect <mangoebsvolume>
+
+create container using the above created volume
+>docker run  -d --name <anyname> --network <networkname> -v <ebs volume name>:<container filesystem where the files will store> <image>
+ex: docker run -d --name mango --network mangobridge -v mangoebsvolume:/data/db mango:latest
+
+
+
+[AKIAR2XMXUDNA7IVYLZL]
+[FvzQCi1QnO7ncMdN9wIe+4xUa3zeTDGppotTvaGh]
+
+
+Docker compose
+------------------
+it is a file to create container with .yaml file
+root names to create the docker compose file
+-version
+-service
+-networks
+-volume
+
+
+commands to run the docker compose file 
+-------------------------------------------
+>docker-compose -f <file name>  ---> if having any different file name 
+>docker-compose config -->to che the file having no any errors
+>docker-compose up -d   --> it will create and start
+>docker-compose create  --> create service,networks and volums
+>docker-compose start  --> to start the services
+>docker-compose stop   --> to stop the services
+>docker-compose down   --> it will stop and remove the services and networks
+>docker-compose ps 
+>docker-compose images 
+>docker-compose logs
+
+
+CLuster configuration  docker swam
+=======================================
+create multiple server to create a cluster for creatng a cluster you must need to open some ports in every server for configuration
+-TCP port 2377   for cluster management configuration
+-TCP and UDP port  7946 for communication among nodes
+-UDP port 4789 for overlay network traffic
+
+1)creae 3 instances in same VPC with added security group to open ports with > alltrafic > 172.31.0.0/16 
+2)install docker in all 3 nodes
+>sudo apt update -y
+>sudo install docker.io -y
+>sudo usermod -aG docker <ubuntu>
+3)run below command in one of the node to make it as a master by instaling docker swarm in that node 
+>docker swarm init 
+then it will work the docker swam commands
+
+>docker node ls   --> to list the nodes connected to that cluster (it will only work on master nodes)
+>docker swarm join-token worker   --> to get the worker token to join the another server as a worker 
+>docker swarm join-token manager  -->to get the manager token to join the another server as a manager
+
+>docker service ls  -->to check the services list 
+
+if we need to create any container we need to create it from master node only 
+>docker service create --name <nayName> -p 8080:8080 <image>:<tag>   -->it will create the services in [replica] mode as default with out menction any num of replicasl it will create 1 replica default
+>docker service create --name mvnapp -p 8080:8080 --replicas 4 <image>:tag   -->it will create replicas of containers by command 
+>docker service create --name mvnapp -p 8080:8080 --replicas 4 --constraint "node.role==worker" <image>:tag -->it will create the containers in worker nodes only
+>docker service ps <service name>   -->to check where the containers are created in which node 
+>docker service scale <serviceName>=3  --> to increace the containers (scale up)
+>docker service update <serviceName> --image <image>:<updated tag>   --> it will update the existing containers 
+
+above command to create the multiple containers as per the replica value we can scale-in and scale-out by command 
+but in the gloable mode to create the containers it will automatically scale-in and scale-out as per the load
+
+>docker service create --name <anyname> -p 8080:8080 --mode global <image>:<tag>   -->it will create the container gloabelly 
+>docker service create --name <anyname> -p 8080:8080 --mode global --constraint "node.role==worker" <image>:<tag> -->it will create the containers in worker nodes only`
+
+drain the node to make any update or patches on that node 
+>docker node ls
+>docker node update --availability drain <hostname>
+>docker node update --availability active <hostname>
+
+add label to the node
+>docker node update --label-add <keyAny>=<valueAny> <Hostname>   -ip will get from >docker node ls 
+ex: docker node update --label-add storage=ssd ip-172-31-10-79    
+
+creating the containers using the label for creating he container in specific container 
+>docker service create --name <anyname> -p 8080:8080 --mode global --constraint "node.labels.<key>==<value>" <image>:<tag>  
+
+delete the service 
+>docker service rm <serviceName>
+
+create the seperate network in docker swam default network in overlay
+>docker network ls 
+>docker network create -d <driver> <nameAny>   ->to create the seperate network in the swam network overlay
+
+create the service with that created network 
+>docker service create --name <anyname> -p 8080:8080 --mode global --network <networkName> --constraint "node.role==worker" <image>:<tag>
+
+Docker login in to use the private repo to create the containers
+>docker login -u <usernmae> 
+to authinticate the login in worker nodes and create the container in worker node using private repo
+>docker service create --name <anyname> --with-registry-auth -p 8080:8080 --mode global --network <networkName> <image>:<tag>
+
+
+
+Docker stack
+===============
+docker stack is collection of one are more services
+
+
+
+
+
+
+
+
+
+
